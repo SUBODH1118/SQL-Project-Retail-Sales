@@ -5,18 +5,18 @@
 
 **Project Title**: Retail Sales Analysis  
 
-**2. Short Description**
+## Short Description
 
 The Retail Sales Analysis project focuses on analyzing transactional retail data using SQL to uncover sales trends, customer purchasing behavior, and product performance. The insights derived from this analysis help businesses improve decision-making related to sales strategy, inventory planning, and customer targeting.
 
-**Objectives**
+## Objectives
 
 1. **Set up a retail sales database**: Create and populate a retail sales database with the provided sales data.
 2. **Data Cleaning**: Identify and remove any records with missing or null values.
 3. **Exploratory Data Analysis (EDA)**: Perform basic exploratory data analysis to understand the dataset.
 4. **Business Analysis**: Use SQL to answer specific business questions and derive insights from the sales data.
 
-**3. Technical Tasks**
+## Technical Tasks
 
 * Designed and analyzed structured retail sales tables
 * Wrote SQL queries using SELECT, WHERE, GROUP BY, HAVING, and ORDER BY
@@ -26,7 +26,7 @@ The Retail Sales Analysis project focuses on analyzing transactional retail data
 * Created subqueries and CTEs for advanced data analysis
 * Ensured data accuracy through validation and handling null values
 
-**5. Features / Highlights**
+## Features / Highlights
 
 * Revenue and quantity analysis by product category
 * Identification of top-performing and low-performing products
@@ -208,7 +208,7 @@ GROUP BY shift
 - **Trend Analysis**: Insights into sales trends across different months and shifts.
 - **Customer Insights**: Reports on top customers and unique customer counts per category.
 
-**Conclusion**
+## Conclusion
 
 This project demonstrates strong proficiency in SQL for data analysis by transforming raw retail sales data into meaningful business insights. It highlights the ability to write optimized queries, analyze large datasets, and support strategic decisions related to sales growth, inventory management, and customer engagement.
 
