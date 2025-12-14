@@ -241,7 +241,8 @@ GROUP BY category
 ```
 
 16. **Find the age group (e.g., 18–25, 26–35, 36–45, etc.) that generates the highest revenue**:
-``sql
+
+```sql
 SELECT 
     age_group,
     total_revenue
@@ -268,6 +269,7 @@ ORDER BY total_revenue DESC;
 ```
 
 17. **Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)**:
+
 ```sql
 WITH hourly_sale
 AS
