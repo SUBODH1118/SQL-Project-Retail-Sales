@@ -91,8 +91,14 @@ SELECT *
 FROM retail_sales
 WHERE sale_date = '2022-11-05';
 ```
+2. **Write Sale of all indivisual Category**:
+```sql
+SELECT category, 
+SUM(total_sale) FROM retail_sales 
+group by category;
+```
 
-2. **Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022**:
+3. **Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022**:
 ```sql
 SELECT 
   *
@@ -104,8 +110,17 @@ WHERE
     AND
     quantity >= 4
 ```
+4. **Find average quantity sold per transaction for each product category**:
+```sql
+SELECT 
+	category,
+	AVG(quantity) as Average
+FROM retail_sales 
+group by category 
+order by Average DESC;
+```
 
-3. **Write a SQL query to calculate the total sales (total_sale) for each category.**:
+5. **Write a SQL query to calculate the total sales (total_sale) for each category.**:
 ```sql
 SELECT 
     category,
@@ -115,21 +130,39 @@ FROM retail_sales
 GROUP BY 1
 ```
 
-4. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.**:
+6. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category**:
 ```sql
 SELECT
     ROUND(AVG(age), 2) as avg_age
 FROM retail_sales
-WHERE category = 'Beauty'
+WHERE category = 'Beauty';
+
 ```
 
-5. **Write a SQL query to find all transactions where the total_sale is greater than 1000.**:
+7. **Determine total revenue generated per day.**:
+```sql
+SELECT sale_date, 
+sum(total_sale) as Revenue 
+FROM retail_sales 
+GROUP BY sale_date
+ORDER BY sale_date ;
+```
+8. **Write a SQL query to find all transactions where the total_sale is greater than 1000**:
 ```sql
 SELECT * FROM retail_sales
-WHERE total_sale > 1000
+WHERE total_sale > 1000;
+```
+9. **Calculate profit for each transaction**:
+
+```sql
+SELECT 
+transaction_id,(total_sale - cogs) as Profit 
+FROM retail_sales 
+order by Profit desc;
+
 ```
 
-6. **Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category.**:
+10. **Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category.**:
 ```sql
 SELECT 
     category,
@@ -142,8 +175,20 @@ GROUP
     gender
 ORDER BY 1
 ```
+11. **Identify repeat customers who have made more than 3 transactions**:
 
-7. **Write a SQL query to calculate the average sale for each month. Find out best selling month in each year**:
+```sql
+SELECT customer_id,
+COUNT(transaction_id) AS Tranactions
+from retail_sales 
+group by customer_id
+having COUNT(transaction_id)>3
+order by Tranactions desc;
+
+```
+
+12. **Write a SQL query to calculate the average sale for each month. Find out best selling month in each year**:
+
 ```sql
 SELECT 
        year,
@@ -160,9 +205,10 @@ FROM retail_sales
 GROUP BY 1, 2
 ) as t1
 WHERE rank = 1
-```
 
-8. **Write a SQL query to find the top 5 customers based on the highest total sales **:
+```
+13. **Write a SQL query to find the top 5 customers based on the highest total sales**:
+
 ```sql
 SELECT 
     customer_id,
@@ -170,10 +216,22 @@ SELECT
 FROM retail_sales
 GROUP BY 1
 ORDER BY 2 DESC
-LIMIT 5
+LIMIT 5;
 ```
 
-9. **Write a SQL query to find the number of unique customers who purchased items from each category.**:
+
+14. **Calculate gender-wise contribution to total sales (percentage) **:
+```sql
+SELECT gender, 
+ROUND(
+	(SUM(total_sale) * 100.0) / (SELECT SUM(total_sale) 
+    FROM retail_sales),2 ) as Percentage 
+FROM retail_sales 
+group by gender;
+
+```
+
+15. **Write a SQL query to find the number of unique customers who purchased items from each category.**:
 ```sql
 SELECT 
     category,    
@@ -182,7 +240,34 @@ FROM retail_sales
 GROUP BY category
 ```
 
-10. **Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)**:
+16. **Find the age group (e.g., 18–25, 26–35, 36–45, etc.) that generates the highest revenue**:
+``sql
+SELECT 
+    age_group,
+    total_revenue
+FROM (
+    SELECT
+        CASE
+            WHEN age BETWEEN 18 AND 25 THEN '18-25'
+            WHEN age BETWEEN 26 AND 35 THEN '26-35'
+            WHEN age BETWEEN 36 AND 45 THEN '36-45'
+            ELSE '45+'
+        END AS age_group,
+        SUM(total_sale) AS total_revenue
+    FROM retail_sales
+    GROUP BY 
+        CASE
+            WHEN age BETWEEN 18 AND 25 THEN '18-25'
+            WHEN age BETWEEN 26 AND 35 THEN '26-35'
+            WHEN age BETWEEN 36 AND 45 THEN '36-45'
+            ELSE '45+'
+        END
+) t
+ORDER BY total_revenue DESC;
+
+```
+
+17. **Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)**:
 ```sql
 WITH hourly_sale
 AS
@@ -200,6 +285,39 @@ SELECT
     COUNT(*) as total_orders    
 FROM hourly_sale
 GROUP BY shift
+```
+
+18. **Determine the customer with the highest lifetime value**:
+
+```sql
+SELECT customer_id,
+SUM(total_sale) AS Sale 
+from retail_sales 
+GROUP BY customer_id 
+ORDER BY Sale desc limit 1 ;
+
+```
+
+19. **Find average total sale value per transaction**:
+
+```sql
+
+SELECT customer_id, 
+AVG(total_sale) AS Average 
+from retail_sales 
+GROUP BY transaction_id 
+ORDER BY Average ;
+
+```
+
+20. **Identify the top 5 highest-value transactions**:
+
+```sql
+
+SELECT *, SUM(total_sale) as Sale from retail_sales
+GROUP BY transaction_id
+ORDER BY Sale  desc limit 5 ;
+
 ```
 
 ## Reports
